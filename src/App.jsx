@@ -65,6 +65,19 @@ const team = [
   { name: 'Dra. Fernanda Torres', role: 'Ortodontia', cro: 'CRO-SP 52.789', color: '#0077b6' },
 ]
 
+const teamPhotos = [
+  'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80&auto=format&fit=crop',
+]
+
+const clinicImages = [
+  'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=600&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1489278353717-f64c6ee8a4d2?w=600&q=80&auto=format&fit=crop',
+]
+
 const testimonials = [
   {
     name: 'Mariana Souza',
@@ -85,6 +98,26 @@ const testimonials = [
     service: 'Facetas Porcelana',
   },
 ]
+
+const GalleryImage = ({ src, index }) => {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="overflow-hidden rounded-2xl shadow-md group"
+    >
+      <img
+        src={src}
+        alt="Clínica Sorriso Perfeito"
+        className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+    </motion.div>
+  )
+}
 
 const SectionTitle = ({ children, subtitle, dark }) => {
   const ref = useRef(null)
@@ -139,7 +172,7 @@ const ServiceCard = ({ s, i }) => {
   )
 }
 
-const TeamCard = ({ member, i }) => {
+const TeamCard = ({ member, i, photo }) => {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   return (
@@ -150,15 +183,15 @@ const TeamCard = ({ member, i }) => {
       transition={{ duration: 0.7, delay: i * 0.2 }}
       className="text-center"
     >
-      <div
-        className="w-36 h-36 mx-auto mb-6 rounded-full flex items-center justify-center relative"
-        style={{
-          background: `linear-gradient(135deg, ${member.color}40, ${member.color}20)`,
-          border: `2px solid ${member.color}40`,
-        }}
+      <div className="w-48 h-48 mx-auto mb-6 rounded-full relative overflow-hidden"
+        style={{ border: `3px solid ${member.color}60` }}
       >
-        <FaUserMd size={48} style={{ color: member.color }} />
-        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#00b4d8] rounded-full flex items-center justify-center">
+        <img
+          src={photo}
+          alt={member.name}
+          className="w-full h-full object-cover object-top"
+        />
+        <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#00b4d8] rounded-full flex items-center justify-center">
           <FaCheck className="text-white" size={10} />
         </div>
       </div>
@@ -378,19 +411,28 @@ export default function App() {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative hidden lg:block"
           >
-            <div className="aspect-square max-w-md mx-auto relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#0077b6]/20 to-[#00b4d8]/30 rounded-[40%_60%_60%_40%/60%_40%_60%_40%]" />
-              <div className="absolute inset-8 bg-gradient-to-br from-[#e1eeff] to-[#cce4f6] rounded-[40%_60%_60%_40%/60%_40%_60%_40%] flex items-center justify-center overflow-hidden">
-                <FaSmile className="text-[#0077b6] opacity-20" size={200} />
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-6xl mb-2">😁</div>
-                  <div className="text-[#0077b6] font-serif text-xl">Sorriso Saudável</div>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop"
+                alt="clínica dental"
+                className="w-full h-[500px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0077b6]/30 to-transparent" />
+              <motion.div
+                animate={{ y: [-5, 5, -5] }}
+                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+                className="absolute bottom-6 left-6 bg-white rounded-xl p-3 shadow-xl flex items-center gap-3"
+              >
+                <span className="text-2xl">⭐</span>
+                <div>
+                  <div className="font-bold text-sm text-gray-800">4.9/5</div>
+                  <div className="text-xs text-gray-500">+2.400 avaliações</div>
                 </div>
-              </div>
+              </motion.div>
               {[
-                { icon: FaCheck, text: 'Sem Dor', pos: 'top-6 -left-6', bg: '#0077b6' },
-                { icon: FaAward, text: '12 Anos', pos: 'bottom-10 -right-6', bg: '#00b4d8' },
-                { icon: FaUserMd, text: '3 Especialistas', pos: 'bottom-0 left-0', bg: '#005e8b' },
+                { icon: FaCheck, text: 'Sem Dor', pos: 'top-6 left-6', bg: '#0077b6' },
+                { icon: FaAward, text: '12 Anos', pos: 'top-6 right-6', bg: '#00b4d8' },
+                { icon: FaUserMd, text: '3 Especialistas', pos: 'bottom-6 right-6', bg: '#005e8b' },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -431,6 +473,18 @@ export default function App() {
         </div>
       </section>
 
+      {/* Gallery */}
+      <section className="py-20 bg-[#f0f7ff]">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionTitle subtitle="Nossa Clínica">Estrutura e Ambiente</SectionTitle>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {clinicImages.map((src, index) => (
+              <GalleryImage key={index} src={src} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Team */}
       <section id="equipe" className="py-32 bg-gradient-to-br from-[#0a1628] to-[#0f2545]">
         <div className="max-w-7xl mx-auto px-6">
@@ -439,7 +493,7 @@ export default function App() {
           </SectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member, i) => (
-              <TeamCard key={i} member={member} i={i} />
+              <TeamCard key={i} member={member} i={i} photo={teamPhotos[i]} />
             ))}
           </div>
         </div>
