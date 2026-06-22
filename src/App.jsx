@@ -418,7 +418,7 @@ export default function App() {
                 poster="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop"
                 className="w-full h-[500px] object-cover"
               >
-                <source src="https://assets.mixkit.co/videos/4773/4773-1080.mp4" type="video/mp4" />
+                <source src="/hero.mp4" type="video/mp4" />
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-[#0077b6]/30 to-transparent" />
               <motion.div
