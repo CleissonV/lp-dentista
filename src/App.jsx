@@ -19,6 +19,7 @@ import {
   FaAward,
 } from 'react-icons/fa'
 import { MdHealthAndSafety, MdCleanHands } from 'react-icons/md'
+import { LuStar } from 'react-icons/lu'
 
 const services = [
   {
@@ -383,10 +384,10 @@ export default function App() {
                 {['#0077b6', '#00b4d8', '#005e8b'].map((c, i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold"
+                    className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white"
                     style={{ backgroundColor: c }}
                   >
-                    ★
+                    <LuStar size={14} className="fill-white" />
                   </div>
                 ))}
               </div>
@@ -412,18 +413,20 @@ export default function App() {
             className="relative hidden lg:block"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop"
-                alt="clínica dental"
+              <video
+                autoPlay loop muted playsInline
+                poster="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop"
                 className="w-full h-[500px] object-cover"
-              />
+              >
+                <source src="https://assets.mixkit.co/videos/4773/4773-1080.mp4" type="video/mp4" />
+              </video>
               <div className="absolute inset-0 bg-gradient-to-t from-[#0077b6]/30 to-transparent" />
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
                 transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
                 className="absolute bottom-6 left-6 bg-white rounded-xl p-3 shadow-xl flex items-center gap-3"
               >
-                <span className="text-2xl">⭐</span>
+                <LuStar className="text-[#f5b301] fill-[#f5b301]" size={22} />
                 <div>
                   <div className="font-bold text-sm text-gray-800">4.9/5</div>
                   <div className="text-xs text-gray-500">+2.400 avaliações</div>
